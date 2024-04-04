@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  webapp:
+    image: mariadb:${TAG}
+    build:
+      context: ./container/mariadb
+    env_file:
+      - .env
+# WordPressコンテナに繋げる
+    # networks:
+    #   - none
+    volumes: 
+      - db-data:/home/hsawamur/data
+
+volumes:
+  db-data:
+    name: ${DATABASE_VOLUME}

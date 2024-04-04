@@ -6,6 +6,4 @@ RUN apt-get update && apt-get install -y \
 
 EXPOSE 3306
 
-VOLUME ["/home/hsawamur/data"]
-
 CMD ["mysqld_safe"]
