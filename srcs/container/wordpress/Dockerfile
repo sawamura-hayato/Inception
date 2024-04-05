@@ -1,3 +1,6 @@
 FROM nginx:latest
+
 RUN service nginx start
-EXPOSE 443
+
+EXPOSE 9000
+EXPOSE 3306
