@@ -1,7 +1,6 @@
-SRCS := srcs
-COMPOSE_FILE := docker-compose.yml
+include ./srcs/.env
 
-.PHONY: setup up ps down stop rm mariadb
+.PHONY: setup up ps down stop rm login-$(MARIADB)
 
 setup: up ps
 
@@ -22,7 +21,6 @@ stop:
 rm:
 	@docker compose -f ./$(SRCS)/$(COMPOSE_FILE) rm
 
-mariadb:
-	docker build -t mariadb $(SRCS)/container/mariadb/.
-	docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=password -dp 3306:3306 mariadb
+login-$(MARIADB):
+	@docker exec -it $(MARIADB) $(SHELL)
 

@@ -1,16 +1,19 @@
 version: "3.8"
 services:
-  webapp:
+  mariadb:
     image: mariadb:${TAG}
+    container_name: mariadb
     build:
       context: ./container/mariadb
+    environment:
+      - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
     env_file:
       - .env
 # WordPressコンテナに繋げる
     # networks:
     #   - none
     volumes: 
-      - db-data:/home/hsawamur/data
+      - db-data:/home/${USER}/data
 
 volumes:
   db-data:
