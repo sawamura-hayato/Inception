@@ -1,5 +1,5 @@
 include ./srcs/.env
-
+#a
 .PHONY: setup up ps down stop rm login-mariadb
 
 setup: up ps
