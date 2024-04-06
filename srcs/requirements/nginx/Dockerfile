@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM debian:bookworm
 
 RUN service nginx start
 

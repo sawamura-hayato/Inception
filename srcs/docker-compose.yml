@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   # nginx:
   #   image: nginx:${TAG}-${NGINX}
@@ -9,6 +8,12 @@ services:
   #     - front
   #   ports:
   #     - 443:443
+    # networks:
+    #   - inception
+    # volumes:
+    #   - wp-volume:/home/${USER}/data/wordpress
+    # restart:
+    #   always
   # wordpress:
   #   image: wordpress:${TAG}-${WORDPRESS}
   #   container_name: ${WORDPRESS}
@@ -17,23 +22,48 @@ services:
   #   networks:
   #     - front
   #     - back
+    # volumes:
+    #   - wp-volume:/home/${USER}/data/wordpress
+    # restart:
+    #   always
+
   db:
-    image: mariadb:${TAG}-${MARIADB}
-    container_name: ${MARIADB}
+    image: mariadb:${TAG}-mariadb
+    container_name: mariadb
     build:
-      context: ./container/${MARIADB}
+      context: ./requirements/mariadb
     environment:
       - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
     env_file:
       - .env
-    # networks:
-    #   - back
+    networks:
+      - back
     volumes:
-      - db-data:/home/${USER}/data
+      - db-volume:/var/lib/mysql
+    restart:
+      always
 
 volumes:
-  db-data:
-    name: ${DATABASE_VOLUME}
+  wp-volume:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/wordpress
+
+  db-volume:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/mariadb
+
+networks:
+    front:
+        driver: bridge
+    back:
+        driver: bridge
+# volumes:
+#   db-data:
+#     name: ${DATABASE_VOLUME}
 
 # networks:
 #   - front
