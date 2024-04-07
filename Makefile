@@ -2,7 +2,7 @@ include ./srcs/.env
 
 .PHONY: setup up ps down stop rm login-mariadb
 
-setup: up ps
+setup: build up ps
 
 build:
 	docker compose -f ./$(SRCS)/$(COMPOSE_FILE) build
@@ -26,4 +26,3 @@ rm:
 
 login-mariadb:
 	docker exec -it mariadb $(SHELL)
-
