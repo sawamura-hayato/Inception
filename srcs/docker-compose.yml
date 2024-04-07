@@ -14,18 +14,22 @@ services:
     #   - wp-volume:/home/${USER}/data/wordpress
     # restart:
     #   always
-  # wordpress:
-  #   image: wordpress:${TAG}-${WORDPRESS}
-  #   container_name: ${WORDPRESS}
-  #   build:
-  #    context: ./container/${WORDPRESS}
-  #   networks:
-  #     - front
-  #     - back
-    # volumes:
-    #   - wp-volume:/home/${USER}/data/wordpress
-    # restart:
-    #   always
+  wordpress:
+    image: wordpress:${TAG}-${WORDPRESS}
+    container_name: wordpress
+    build:
+     context: ./requirements/wordpress
+    depends_on:
+      - db
+    networks:
+      - front
+      - back
+    volumes:
+      - wp-volume:/home/${USER}/data/wordpress
+    restart:
+      always
+    ports:
+      - "8000:80"
 
   db:
     image: mariadb:${TAG}-mariadb
@@ -61,10 +65,4 @@ networks:
         driver: bridge
     back:
         driver: bridge
-# volumes:
-#   db-data:
-#     name: ${DATABASE_VOLUME}
 
-# networks:
-#   - front
-#   - back

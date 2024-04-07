@@ -1,6 +1,12 @@
-FROM debian:bookworm
+FROM debian:buster
 
-RUN service nginx start
+RUN apt update -y && apt install \ 
+	php-fpm \ 
+	php-mysql \
+	curl -y
 
-EXPOSE 9000
-EXPOSE 3306
+COPY ./tools/script.sh /
+COPY ./config/wp-config-docker.php /
+
+
+CMD [ 'bash', 'script.sh' ]
