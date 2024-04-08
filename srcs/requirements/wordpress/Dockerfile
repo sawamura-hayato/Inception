@@ -1,13 +1,17 @@
+# SPECIFIE LA DISTRIBUTION
 FROM debian:buster
 
-RUN apt update -y && apt install \ 
-	php-fpm \ 
-	php-mysql \
-	curl -y
+RUN apt-get update && apt install php-fpm  -y
 
-COPY ./tools/init.sh /
-RUN chmod +x init.sh
+# To create the PID file (/run/php/php7.3-fpm.pid)
+RUN mkdir /run/php
 
-COPY ./config/wp-config.php /
+# To allow external connections
+COPY ./config/www.conf /etc/php/7.3/fpm/pool.d/
 
-CMD [ "./init.sh" ]
+# To create index.php  
+COPY ./conf/index.php /var/www/html/wordpress/index.php
+
+EXPOSE 9000 
+
+ENTRYPOINT ["/usr/sbin/php-fpm7.3","-F" ]

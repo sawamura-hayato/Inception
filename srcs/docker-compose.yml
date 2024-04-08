@@ -1,19 +1,17 @@
 services:
-  # nginx:
-  #   image: nginx:${TAG}-${NGINX}
-  #   container_name: ${NGINX}
-  #   build:
-  #    context: ./container/${NGINX}
-  #   networks:
-  #     - front
-  #   ports:
-  #     - 443:443
-    # networks:
-    #   - inception
-    # volumes:
-    #   - wp-volume:/home/${USER}/data/wordpress
-    # restart:
-    #   always
+  nginx:
+    image: nginx:${TAG}-nginx
+    container_name: nginx
+    build:
+     context: ./requirements/nginx
+    networks:
+      - back
+    ports:
+      - 443:443
+    volumes:
+      - wp-volume:/var/www/html
+    restart:
+      always
   wordpress:
     image: wordpress:${TAG}-wordpress
     container_name: wordpress
@@ -31,11 +29,9 @@ services:
     networks:
       - back
     volumes:
-      - wp-volume:/home/${USER}/data/wordpress
+      - wp-volume:/var/www/html
     restart:
       always
-    ports:
-      - "8000:80"
 
   db:
     image: mariadb:${TAG}-mariadb

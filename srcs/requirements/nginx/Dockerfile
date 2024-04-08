@@ -1,6 +1,9 @@
-FROM debian:bookworm
+FROM debian:buster
 
-RUN service nginx start
+RUN apt-get update && apt-get install -y nginx
+
+COPY ./config/default /etc/nginx/sites-available/default
 
 EXPOSE 9000
-EXPOSE 443
+
+CMD [ "nginx", "-g", "daemon off;" ]
