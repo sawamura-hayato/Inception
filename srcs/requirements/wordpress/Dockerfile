@@ -8,6 +8,6 @@ RUN apt update -y && apt install \
 COPY ./tools/init.sh /
 RUN chmod +x init.sh
 
-COPY ./config/wp-config-docker.php /
+COPY ./config/wp-config.php /
 
 CMD [ "./init.sh" ]
