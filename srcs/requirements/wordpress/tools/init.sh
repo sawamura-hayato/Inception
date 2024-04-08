@@ -24,10 +24,9 @@ mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 mv /wp-config.php /var/www/html/wp-config.php
 
-wp core install --url=$WORDPRESS_DOMAIN_NAME/ --title=HELLO --admin_user=$WORDPRESS_DB_ADMIN --admin_password=password --admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
+wp core install --url=$WORDPRESS_DOMAIN_NAME/ --title=HELLO --admin_user=$WORDPRESS_ADMIN --admin_password=password --admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
 
-wp user create $WORDPRESS_DB_USR $WORDPRESS_USER_EMAIL --role=author --user_pass=password --allow-root
-
+wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL --role=author --user_pass=password --allow-root
 
 wp theme install astra --activate --allow-root
 
