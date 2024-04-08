@@ -75,14 +75,14 @@ define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE', '') );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'put your unique phrase here') );
-define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  'put your unique phrase here') );
-define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    'put your unique phrase here') );
-define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY',        'put your unique phrase here') );
-define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT',        'put your unique phrase here') );
-define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', 'put your unique phrase here') );
-define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   'put your unique phrase here') );
-define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       'put your unique phrase here') );
+define('AUTH_KEY',         'HL!1-HSez8;-3Nnf|G`b{vVt52:!yjGYLE~;^n}f%X-SboPx1SU68E}wq%Jvj7vW');
+define('SECURE_AUTH_KEY',  'e<%n7,i)DSDR#)IrJ/TRuCX63q0q*8Dq2[GY+[{dj],N6lpTWs[>bbJ&x|I`i- }');
+define('LOGGED_IN_KEY',    'p>u1X8<w-=>?Er)@:tbNC`)7{:&`L1vf}%jbJLe?Nec012j[N:R9&wJRR<O~y(Ic');
+define('NONCE_KEY',        'G>k6YS<58^9#EWt||;*(YQk4HAZnP[Dmmf^HY:Z7|9{/43;Nz7E~ D0Z6BO`JuXj');
+define('AUTH_SALT',        '!v@|_WBEal8xu|jy:nB>))(V+d&}Y0VO)!cyxmqYI&L];A>bx*#3z`9_nf:qY1q+');
+define('SECURE_AUTH_SALT', '~JLk?8R#hf$1C{9NGtnk,fi|P5Oo(gI1OGk/12TdPGE>3aHYZtfi}MuF5Fu+I+JJ');
+define('LOGGED_IN_SALT',   'L*yO&9t:D!ra&$km2|+iWLsexN6X5:QR1:m=xw+`|!EAp@Qbvkd2 !-nawH/-QbT');
+define('NONCE_SALT',       ':5QA60S0}/Km9k!soq!yPq{e!9&$0-O5V3Ez4u;WFmUuWD}jROq?Rg|55-Xqk#pL');
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
 
 /**#@-*/
@@ -111,17 +111,6 @@ define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-// If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
-// see also https://wordpress.org/support/article/administration-over-ssl/#using-a-reverse-proxy
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
-	$_SERVER['HTTPS'] = 'on';
-}
-// (we include this by default because reverse proxying is extremely common in container environments)
-
-if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
-	eval($configExtra);
-}
-
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
@@ -131,4 +120,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
-

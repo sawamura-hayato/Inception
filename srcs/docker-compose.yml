@@ -15,7 +15,7 @@ services:
     # restart:
     #   always
   wordpress:
-    image: wordpress:${TAG}-${WORDPRESS}
+    image: wordpress:${TAG}-wordpress
     container_name: wordpress
     build:
      context: ./requirements/wordpress
