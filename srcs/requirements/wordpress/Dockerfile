@@ -5,8 +5,9 @@ RUN apt update -y && apt install \
 	php-mysql \
 	curl -y
 
-COPY ./tools/script.sh /
+COPY ./tools/init.sh /
+RUN chomod +x init.sh
+
 COPY ./config/wp-config-docker.php /
 
-
-CMD [ 'bash', 'script.sh' ]
+CMD [ './init.sh' ]
