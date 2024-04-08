@@ -1,6 +1,6 @@
 include ./srcs/.env
 
-.PHONY: setup up ps down stop rm login-mariadb
+.PHONY: setup up ps down stop rm log login-mariadb login-wordpress
 
 setup: build up ps
 
@@ -24,5 +24,11 @@ stop:
 rm:
 	docker compose -f ./$(SRCS)/$(COMPOSE_FILE) rm
 
+log:
+	 docker-compose -f ./$(SRCS)/$(COMPOSE_FILE) logs
+
 login-mariadb:
 	docker exec -it mariadb $(SHELL)
+
+login-wordpress:
+	docker exec -it	wordpress $(SHELL)

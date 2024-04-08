@@ -6,8 +6,8 @@ RUN apt update -y && apt install \
 	curl -y
 
 COPY ./tools/init.sh /
-RUN chomod +x init.sh
+RUN chmod +x init.sh
 
 COPY ./config/wp-config-docker.php /
 
-CMD [ './init.sh' ]
+CMD [ "./init.sh" ]
