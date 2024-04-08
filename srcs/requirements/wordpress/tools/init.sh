@@ -3,8 +3,8 @@
 
 
 # create directory to use in nginx container later and also to setup the wordpress conf
-mkdir /var/www/
-mkdir /var/www/html
+mkdir -p /var/www/
+mkdir -p /var/www/html
 
 cd /var/www/html
 
@@ -38,9 +38,7 @@ wp plugin update --all --allow-root
  
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
-mkdir /run/php
-
-
+mkdir -p /run/php
 
 wp redis enable --allow-root
 
