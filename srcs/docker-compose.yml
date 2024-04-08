@@ -29,7 +29,6 @@ services:
       - WORDPRESS_DB_CHARSET=${WORDPRESS_DB_CHARSET}
       - WORDPRESS_DEBUG=${WORDPRESS_DEBUG}
     networks:
-      - front
       - back
     volumes:
       - wp-volume:/home/${USER}/data/wordpress
@@ -45,7 +44,7 @@ services:
       context: ./requirements/mariadb
     environment:
       - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MARIA_HOST_NAME=${MARIA_HOST_NAME}
+      - MARIA_HOST_NAME=${MARIADB_HOST_NAME}
     env_file:
       - .env
     networks:
@@ -69,8 +68,8 @@ volumes:
       device: /home/${USER}/data/mariadb
 
 networks:
-    front:
-        driver: bridge
+    # front:
+    #     driver: bridge
     back:
         driver: bridge
 
