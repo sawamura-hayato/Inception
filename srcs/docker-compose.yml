@@ -51,19 +51,21 @@ services:
       #      - db-volume:/var/lib/mysql
       #    restart:
       #      always
-      #
+
 volumes:
   wp-volume:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wordpress
+      device: /Users/sawamurashun/data/wordpress
+      # device: /home/${USER}/data/wordpress
 
   db-volume:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mariadb
+      device: /Users/sawamurashun/data/mariadb
+      # device: /home/${USER}/data/mariadb
 
 networks:
     # front:

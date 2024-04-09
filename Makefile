@@ -7,10 +7,13 @@ setup: build up ps
 build:
 	docker compose -f ./$(SRCS)/$(COMPOSE_FILE) build
 
+# mkdir -p /home/$(USER)/data
+# mkdir -p /home/$(USER)/data/mariadb
+# mkdir -p /home/$(USER)/data/wordpress
 up:
-	mkdir -p /home/$(USER)/data
-	mkdir -p /home/$(USER)/data/mariadb
-	mkdir -p /home/$(USER)/data/wordpress
+	mkdir -p /Users/sawamurashun/data
+	mkdir -p /Users/sawamurashun/data/mariadb
+	mkdir -p /Users/sawamurashun/data/wordpress
 	docker compose -f ./$(SRCS)/$(COMPOSE_FILE) up -d
 
 ps:
