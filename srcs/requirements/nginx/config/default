@@ -4,7 +4,7 @@ server {
 
         server_name _;
 
-        root /var/www/html/wordpress;
+        root /var/www/html;
         index index.php ;
         
         # logging
