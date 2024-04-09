@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./config/my.cnf /etc/mysql/my.cnf
+RUN chmod +x /etc/mysql/my.cnf
 
 WORKDIR /
 

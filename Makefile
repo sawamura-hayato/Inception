@@ -1,6 +1,6 @@
 include ./srcs/.env
 
-.PHONY: setup up ps down stop rm log login-mariadb login-wordpress
+.PHONY: setup up ps down stop rm log login-mariadb login-wordpress login-nginx
 
 setup: build up ps
 
@@ -32,3 +32,6 @@ login-mariadb:
 
 login-wordpress:
 	docker exec -it	wordpress $(SHELL)
+
+login-nginx:
+	docker exec -it nginx $(SHELL)

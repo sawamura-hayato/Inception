@@ -7,9 +7,11 @@ services:
     networks:
       - back
     ports:
-      - 443:443
+      - 8000:80
     volumes:
       - wp-volume:/var/www/html
+    depends_on:
+      - wordpress
     restart:
       always
   wordpress:
@@ -17,8 +19,8 @@ services:
     container_name: wordpress
     build:
      context: ./requirements/wordpress
-    depends_on:
-      - db
+       #    depends_on:
+       #      - db
     environment:
       - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
       - WORDPRESS_DB_USER=${WORDPRESS_USER}
@@ -33,23 +35,23 @@ services:
     restart:
       always
 
-  db:
-    image: mariadb:${TAG}-mariadb
-    container_name: mariadb
-    build:
-      context: ./requirements/mariadb
-    environment:
-      - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MARIA_HOST_NAME=${MARIADB_HOST_NAME}
-    env_file:
-      - .env
-    networks:
-      - back
-    volumes:
-      - db-volume:/var/lib/mysql
-    restart:
-      always
-
+      #  db:
+      #    image: mariadb:${TAG}-mariadb
+      #    container_name: mariadb
+      #    build:
+      #      context: ./requirements/mariadb
+      #    environment:
+      #      - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      #      - MARIA_HOST_NAME=${MARIADB_HOST_NAME}
+      #    env_file:
+      #      - .env
+      #    networks:
+      #      - back
+      #    volumes:
+      #      - db-volume:/var/lib/mysql
+      #    restart:
+      #      always
+      #
 volumes:
   wp-volume:
     driver_opts:

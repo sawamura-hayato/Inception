@@ -10,7 +10,7 @@ RUN mkdir /run/php
 COPY ./config/www.conf /etc/php/7.3/fpm/pool.d/
 
 # To create index.php  
-COPY ./conf/index.php /var/www/html/wordpress/index.php
+COPY ./tools/index.php /var/www/html/wordpress/index.php
 
 EXPOSE 9000 
 
