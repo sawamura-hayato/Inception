@@ -59,15 +59,15 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/sawamurashun/data/wordpress
-      # device: /home/${USER}/data/wordpress
+      device: /home/${USER}/data/wordpress
+      # device: /Users/sawamurashun/data/wordpress
 
   db:
     driver_opts:
       type: none
       o: bind
-      device: /Users/sawamurashun/data/mariadb
-      # device: /home/${USER}/data/mariadb
+      device: /home/${USER}/data/mariadb
+      # device: /Users/sawamurashun/data/mariadb
 
 networks:
     front:
