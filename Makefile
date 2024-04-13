@@ -1,6 +1,6 @@
 include ./srcs/.env
 
-.PHONY: setup up ps down stop rm log login-mariadb login-wordpress login-nginx
+.PHONY: host setup up ps down stop rm log login-mariadb login-wordpress login-nginx
 
 setup: build up ps
 
