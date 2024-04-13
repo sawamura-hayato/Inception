@@ -38,3 +38,7 @@ login-wordpress:
 
 login-nginx:
 	docker exec -it nginx $(SHELL)
+
+clean: down
+	docker volume rm srcs_db srcs_wp
+	docker network rm srcs_front srcs_back
