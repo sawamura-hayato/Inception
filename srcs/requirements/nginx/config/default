@@ -1,8 +1,20 @@
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+    listen 80;
+    listen [::]:80;
+    server_name user42.42.fr;
+    return 301 https://$host$request_uri;
+}
 
-        server_name _;
+server {
+        # listen 80;
+        # listen [::]:80;
+        listen 443 ssl;
+        listen [::]:443 ssl;
+
+        server_name user42.42.fr;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_certificate     /etc/nginx/ssl/user42.42.crt;
+        ssl_certificate_key /etc/nginx/ssl/user42.42.key;
 
         root /var/www/html;
         index index.php index.nginx-debian.html;
@@ -13,12 +25,13 @@ server {
         
         location / {
                 try_files $uri $uri/ =404;
+                # proxy_pass https://localhost:443;
         }
 
         location ~ \.php$ {
                 try_files $uri = 404;
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass wordpress:9000; # <------------ Redirect to wordpress container
+                fastcgi_pass wordpress:9000;
                 fastcgi_index index.php;
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;

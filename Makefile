@@ -1,16 +1,19 @@
 include ./srcs/.env
 
-.PHONY: setup up ps down stop rm log login-mariadb login-wordpress login-nginx
+.PHONY: host setup up ps down stop rm log login-mariadb login-wordpress login-nginx
 
 setup: build up ps
 
 build:
 	docker compose -f ./$(SRCS)/$(COMPOSE_FILE) build
 
+# mkdir -p /home/$(USER)/data
+# mkdir -p /home/$(USER)/data/mariadb
+# mkdir -p /home/$(USER)/data/wordpress
 up:
-	mkdir -p /home/$(USER)/data
-	mkdir -p /home/$(USER)/data/mariadb
-	mkdir -p /home/$(USER)/data/wordpress
+	mkdir -p /Users/sawamurashun/data
+	mkdir -p /Users/sawamurashun/data/mariadb
+	mkdir -p /Users/sawamurashun/data/wordpress
 	docker compose -f ./$(SRCS)/$(COMPOSE_FILE) up -d
 
 ps:
@@ -35,3 +38,7 @@ login-wordpress:
 
 login-nginx:
 	docker exec -it nginx $(SHELL)
+
+clean: down
+	docker volume rm srcs_db srcs_wp
+	docker network rm srcs_front srcs_back
