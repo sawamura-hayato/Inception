@@ -1,6 +1,24 @@
-FROM debian:bookworm
+FROM debian:buster
 
-RUN service nginx start
+RUN apt-get update && apt-get install -y \
+	nginx \
+	openssl \
+	&& rm -rf /var/lib/apt/lists/*
+
+COPY ./config/default /etc/nginx/sites-available/default
+
+ARG WORDPRESS_DOMAIN_NAME
+
+RUN mkdir -p /etc/nginx/ssl \
+	&& openssl req \
+	-x509 \
+	-nodes \
+	-newkey rsa:2048 \
+	-keyout /etc/nginx/ssl/user42.42.key \
+	-out /etc/nginx/ssl/user42.42.crt \
+	-days 365 \
+	-subj /CN=${WORDPRESS_DOMAIN_NAME}
 
 EXPOSE 9000
-EXPOSE 443
+
+CMD [ "nginx", "-g", "daemon off;" ]

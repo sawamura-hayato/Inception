@@ -1,6 +1,12 @@
-FROM debian:bookworm
+FROM debian:buster
 
-RUN service nginx start
+RUN apt-get update && apt install php-fpm  -y
 
-EXPOSE 9000
-EXPOSE 3306
+RUN mkdir /run/php
+RUN mkdir -p /var/www/html
+COPY ./config/www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./tools/index.php /var/www/html
+
+EXPOSE 9000 
+
+ENTRYPOINT ["/usr/sbin/php-fpm7.3","-F" ]
