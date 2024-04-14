@@ -1,4 +1,3 @@
-# SPECIFIE LA DISTRIBUTION
 FROM debian:buster
 
 RUN apt-get update && apt install php-fpm  -y

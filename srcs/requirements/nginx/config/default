@@ -1,13 +1,4 @@
 server {
-    listen 80;
-    listen [::]:80;
-    server_name user42.42.fr;
-    return 301 https://$host$request_uri;
-}
-
-server {
-        # listen 80;
-        # listen [::]:80;
         listen 443 ssl;
         listen [::]:443 ssl;
 
@@ -17,15 +8,14 @@ server {
         ssl_certificate_key /etc/nginx/ssl/user42.42.key;
 
         root /var/www/html;
-        index index.php index.nginx-debian.html;
+        index index.php;
         
         # logging
         access_log /var/log/nginx/wordpress.access.log;
         error_log /var/log/nginx/wordpress.error.log;
         
         location / {
-                try_files $uri $uri/ =404;
-                # proxy_pass https://localhost:443;
+                try_files $uri $uri/ = 404;
         }
 
         location ~ \.php$ {
