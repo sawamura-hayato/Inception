@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./config/default /etc/nginx/sites-available/default
 
-ARG WORDPRESS_DOMAIN_NAME
+ARG WP_DOMAIN_NAME
 
 RUN mkdir -p /etc/nginx/ssl \
 	&& openssl req \
@@ -17,7 +17,7 @@ RUN mkdir -p /etc/nginx/ssl \
 	-keyout /etc/nginx/ssl/user42.42.key \
 	-out /etc/nginx/ssl/user42.42.crt \
 	-days 365 \
-	-subj /CN=${WORDPRESS_DOMAIN_NAME}
+	-subj /CN=${WP_DOMAIN_NAME}
 
 EXPOSE 9000
 

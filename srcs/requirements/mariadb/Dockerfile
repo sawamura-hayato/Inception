@@ -1,15 +1,11 @@
 FROM debian:buster
 
-ARG WORDPRESS_DB_NAME
-ARG WORDPRESS_ADMIN
-ARG WORDPRESS_ADMIN_EMAIL
-ARG WORDPRESS_ADMIN_PASSWORD
-ARG MARIADB_ROOT_PASSWORD
-
+# test: vim
 RUN apt-get update && apt-get install -y \
 	mariadb-server \
 	mariadb-client \
 	tini \
+	vim \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./config/my.cnf /etc/mysql/my.cnf

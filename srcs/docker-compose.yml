@@ -5,39 +5,41 @@ services:
     build:
       context: ./requirements/nginx
       args:
-        - WORDPRESS_DOMAIN_NAME=${WORDPRESS_DOMAIN_NAME}
+        - WP_DOMAIN_NAME=${WP_DOMAIN_NAME}
     networks:
       - front
     ports:
-      - "127.0.0.1:443:443"
+      - "127.0.0.1:8080:80"
     volumes:
       - wp:/var/www/html
     depends_on:
       - wordpress
-    restart:
-      always
+    restart: always
 
   wordpress:
     image: wordpress:${TAG}-wordpress
     container_name: wordpress
     build:
-     context: ./requirements/wordpress
+      context: ./requirements/wordpress
+    environment:
+        - WP_DOMAIN_NAME=${WP_DOMAIN_NAME}
+        - WP_DB_NAME=${WP_DB_NAME}
+        - WP_USER=${WP_USER}
+        - WP_USER_EMAIL=${WP_USER_EMAIL}
+        - WP_ADMIN=${WP_ADMIN}
+        - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+        - WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
+        - WP_DB_HOST=${WP_DB_HOST}
+        - WP_DB_CHARSET=${WP_DB_CHARSET}
+        - WP_DEBUG=${WP_DEBUG}
     depends_on:
       - mariadb
-    environment:
-      - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
-      - WORDPRESS_DB_USER=${WORDPRESS_USER}
-      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-      - WORDPRESS_DB_CHARSET=${WORDPRESS_DB_CHARSET}
-      - WORDPRESS_DEBUG=${WORDPRESS_DEBUG}
     networks:
       - front
       - back
     volumes:
       - wp:/var/www/html
-    restart:
-      always
+    restart: always
 
   mariadb:
     image: mariadb:${TAG}-mariadb
@@ -45,14 +47,16 @@ services:
     build:
       context: ./requirements/mariadb
     environment:
-      - MARIA_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MARIA_HOST_NAME=${MARIADB_HOST_NAME}
+      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - DB_HOST_NAME=${DB_HOST_NAME}
+      - DB_USER=${DB_USER}
+      - DB_VOLUME=${DB_VOLUME}
+      - DB_PORT=${DB_PORT}
     networks:
       - back
     volumes:
       - db:/var/lib/mysql
-    restart:
-      always
+    restart: always
 
 volumes:
   wp:
@@ -70,7 +74,7 @@ volumes:
       # device: /home/${USER}/data/mariadb
 
 networks:
-    front:
-        driver: bridge
-    back:
-        driver: bridge
+  front:
+    driver: bridge
+  back:
+    driver: bridge
