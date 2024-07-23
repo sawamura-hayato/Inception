@@ -22,14 +22,12 @@ services:
     build:
       context: ./requirements/wordpress
     environment:
-        - WP_DOMAIN_NAME=${WP_DOMAIN_NAME}
         - WP_DB_NAME=${WP_DB_NAME}
-        - WP_USER=${WP_USER}
-        - WP_USER_EMAIL=${WP_USER_EMAIL}
         - WP_ADMIN=${WP_ADMIN}
-        - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
         - WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
-        - WP_DB_HOST=${WP_DB_HOST}
+        - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+        - WP_DB_HOST=${DB_HOST}
+        - WP_DOMAIN_NAME=${WP_DOMAIN_NAME}
         - WP_DB_CHARSET=${WP_DB_CHARSET}
         - WP_DEBUG=${WP_DEBUG}
     depends_on:
