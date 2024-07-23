@@ -1,12 +1,25 @@
 FROM debian:buster
 
-RUN apt-get update && apt install php-fpm  -y
-
-RUN mkdir /run/php
 RUN mkdir -p /var/www/html
+WORKDIR /var/www/html
+
+# test: vim
+RUN apt-get update && apt install -y \
+	php-fpm \
+	wget \
+	net-tools \
+	php-mysqli \
+	vim \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /run/php && chmod -R 755 /run/php
+
 COPY ./config/www.conf /etc/php/7.3/fpm/pool.d/
-COPY ./tools/index.php /var/www/html
+COPY ./tools/init.sh /usr/local/bin/
+COPY ./tools/index.html /
+RUN chmod +x /usr/local/bin/init.sh
 
-EXPOSE 9000 
+EXPOSE 9000
+EXPOSE 3306
 
-ENTRYPOINT ["/usr/sbin/php-fpm7.3","-F" ]
+ENTRYPOINT [ "init.sh" ]
