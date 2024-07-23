@@ -1,13 +1,16 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
-# service mysql start
-mysqld
+service mysql start
 
-mariadb -u root -p"$WORDPRESS_ADMIN_PASSWORD" << EOF
-CREATE DATABASE IF NOT EXISTS $WORDPRESS_DB_NAME;
-GRANT USAGE ON *.* TO '$WORDPRESS_ADMIN'@'%' IDENTIFIED BY '$WORDPRESS_ADMIN_PASSWORD';
-GRANT ALL ON $WORDPRESS_DB_NAME.* TO '$WORDPRESS_ADMIN'@'%';
-
+mariadb -u root << EOF
+CREATE DATABASE IF NOT EXISTS wordpress_db;
+CREATE USER IF NOT EXISTS 'super'@'%' IDENTIFIED BY 'super';
+GRANT ALL PRIVILEGES ON wordpress_db.* TO 'super'@'%';
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'user';
+GRANT SELECT ON wordpress_db.* TO 'user'@'%';
 FLUSH PRIVILEGES;
 EOF
 
+service mysql stop
+
+mysqld
