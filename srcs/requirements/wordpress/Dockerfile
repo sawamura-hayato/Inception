@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
