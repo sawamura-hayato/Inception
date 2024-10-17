@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:${TAG}-nginx
+    image: nginx:${TAG}
     container_name: nginx
     build:
       context: ./requirements/nginx
@@ -17,7 +17,7 @@ services:
     restart: always
 
   wordpress:
-    image: wordpress:${TAG}-wordpress
+    image: wordpress:${TAG}
     container_name: wordpress
     build:
       context: ./requirements/wordpress
@@ -30,17 +30,17 @@ services:
         - WP_DOMAIN_NAME=${WP_DOMAIN_NAME}
         - WP_DB_CHARSET=${WP_DB_CHARSET}
         - WP_DEBUG=${WP_DEBUG}
-    depends_on:
-      - mariadb
     networks:
       - front
       - back
     volumes:
       - wp:/var/www/html
+    depends_on:
+      - mariadb
     restart: always
 
   mariadb:
-    image: mariadb:${TAG}-mariadb
+    image: mariadb:${TAG}
     container_name: mariadb
     build:
       context: ./requirements/mariadb
