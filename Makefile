@@ -1,7 +1,7 @@
 include ./srcs/.env
 
 .PHONY: setup
-setup: build up ps
+setup: build run ps
 
 .PHONY: host
 host:
