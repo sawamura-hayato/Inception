@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service mysql start
+service mariadb start
 
 mariadb -u root << EOF
 CREATE DATABASE IF NOT EXISTS ${DB_NAME};
@@ -11,6 +11,6 @@ GRANT SELECT ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-service mysql stop
+service mariadb stop
 
 mysqld
