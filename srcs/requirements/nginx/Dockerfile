@@ -1,11 +1,14 @@
 FROM debian:bullseye
 
+# test: vim
 RUN apt-get update && apt-get install -y \
 	nginx \
 	openssl \
+	netcat \
+	vim \ 
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY ./config/default /etc/nginx/sites-available/default
+COPY ./config/default.conf /etc/nginx/conf.d/default.conf
 
 ARG WP_DOMAIN_NAME
 
@@ -19,6 +22,7 @@ RUN mkdir -p /etc/nginx/ssl \
 	-days 365 \
 	-subj /CN=${WP_DOMAIN_NAME}
 
+EXPOSE 443
 EXPOSE 9000
 
 CMD [ "nginx", "-g", "daemon off;" ]
